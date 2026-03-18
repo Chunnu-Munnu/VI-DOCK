@@ -25,7 +25,7 @@ You can do this by using two separate Terminal tabs in VS Code.
 1. Open a new terminal in VS Code (`Ctrl + \``).
 2. Navigate to the `backend` folder:
    ```bash
-   cd "d:\Amogh Projects\SIMDOCK\simdock-pro\backend"
+   cd "d:\USER\SIMDOCK\simdock-pro\backend"
    ```
 3. Run the API startup script:
    ```bash
@@ -37,7 +37,7 @@ You can do this by using two separate Terminal tabs in VS Code.
 1. Open a **second** terminal tab in VS Code (click the `+` icon in the terminal panel).
 2. Ensure you are in the root `simdock-pro` folder:
    ```bash
-   cd "d:\Amogh Projects\SIMDOCK\simdock-pro"
+   cd "d:\user\SIMDOCK\simdock-pro"
    ```
 3. Install the Node dependencies (only needed the first time):
    ```bash
