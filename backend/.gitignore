@@ -53,3 +53,5 @@ simdock.log
 
 # Keep specific files if needed (uncomment to track)
 # !bin/.keep
+
+*.db
