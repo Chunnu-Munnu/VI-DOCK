@@ -63,7 +63,7 @@ def check_wsl_tool(name, check_cmd):
         return False
 
 def main():
-    print("=== SimDock Pro 3.1 - Master Engine Verification ===\n")
+    print("=== VI DOCK Pro 3.1 - Master Engine Verification ===\n")
     
     # 1. Check AutoDock-GPU
     bin_dir = Path.cwd() / "bin"

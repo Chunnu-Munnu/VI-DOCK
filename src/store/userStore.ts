@@ -15,7 +15,7 @@ export const useUserStore = create<UserState>()(
             logout: () => set({ currentUser: null }),
         }),
         {
-            name: 'simdock-user-storage',
+            name: 'vidock-user-storage',
         }
     )
 );

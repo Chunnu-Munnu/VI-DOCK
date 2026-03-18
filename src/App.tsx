@@ -10,15 +10,22 @@ import { BatchPanel } from './ui/components/BatchPanel';
 import { LandingPanel } from './ui/components/LandingPanel';
 import { MoleculeViewer } from './ui/components/MoleculeViewer';
 import { DraggablePanel } from './ui/components/DraggablePanel';
-import { FloatingToolbar } from './ui/components/FloatingToolbar'; // Keep toolbar
 import BackgroundGrid from './ui/components/BackgroundGrid';
+import { FloatingToolbar } from './ui/components/FloatingToolbar';
 // gridboxCalculator imported on-demand if needed
 import './App.css';
 
+const TAB_TITLES: Record<string, string> = {
+  prep: 'Molecule Import',
+  input: 'Input Parameters',
+  batch: 'Batch Mode',
+  running: 'Running Docking',
+  output: 'Output',
+  projects: 'Mission Log'
+};
+
 function App() {
   const { activeTab, theme } = useDockingStore();
-
-  // Example auto-load removed as per user request
 
   // Sync theme to body class for global CSS variables
   useEffect(() => {
@@ -33,64 +40,79 @@ function App() {
   const renderActivePanel = () => {
     switch (activeTab) {
       case 'prep':
-        return (
-          <DraggablePanel title="Molecule Import" width="500px" initialX={60} initialY={80}>
-            <PrepPanel />
-          </DraggablePanel>
-        );
+        return <PrepPanel />;
       case 'input':
-        return (
-          <DraggablePanel title="Input Parameters" width="450px" initialX={60} initialY={80}>
-            <InputPanel />
-          </DraggablePanel>
-        );
+        return <InputPanel />;
       case 'batch':
-        return (
-          <DraggablePanel title="Batch Docking" width="600px" initialX={60} initialY={80}>
-            <BatchPanel />
-          </DraggablePanel>
-        );
+        return <BatchPanel />;
       case 'running':
-        return (
-          <DraggablePanel title="Docking Status" width="600px" initialX={window.innerWidth / 2 - 300} initialY={window.innerHeight / 2 - 200}>
-            <RunningPanel />
-          </DraggablePanel>
-        );
+        return <RunningPanel />;
       case 'output':
-        return (
-          <DraggablePanel title="Docking Results" width="450px" initialX={window.innerWidth - 500} initialY={80}>
-            <OutputPanel />
-          </DraggablePanel>
-        );
+        return <OutputPanel />;
       case 'projects':
-        return (
-          <DraggablePanel title="Mission Log" width="400px" initialX={60} initialY={80}>
-            <ProjectPanel />
-          </DraggablePanel>
-        );
+        return <ProjectPanel />;
       default:
-        return null;
+        // For landing or undefined, we might show nothing in the panel side
+        return (
+          <div style={{ padding: '2rem', color: 'var(--text-secondary)' }}>
+            <h2>Select a tool</h2>
+            <p>Choose a module from the sidebar to begin.</p>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="app spatial-mode">
+    <div className="app spatial-mode" style={{ display: 'flex', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <BackgroundGrid />
-      {/* LAYER 0: GLOBAL VIEWER */}
-      <div className="global-viewer-layer">
-        <MoleculeViewer />
+
+      {/* LAYER 1: CONTROL SIDEBAR (Left) */}
+      <div className="control-sidebar" style={{
+        zIndex: 10,
+        background: 'var(--bg-surface)',
+        borderRight: '1px solid var(--border-divider)',
+        position: 'relative'
+      }}>
+        {/* Navigation Strip */}
+        <Sidebar />
       </div>
 
-      {/* LAYER 1: UI OVERLAY */}
-      <div className="ui-overlay-layer">
-        {activeTab === 'landing' ? (
-          <LandingPanel />
-        ) : (
-          <>
-            <Sidebar />
-            <FloatingToolbar />
+      {/* Draggable Content Panel */}
+      {activeTab !== 'landing' && (
+        <DraggablePanel
+          title={TAB_TITLES[activeTab] || 'Panel'}
+          initialX={90} // Moved slightly more right for better separation
+          initialY={20}
+          width="380px" // Slightly thinner so it takes up less space
+          height="85vh" // Set to 85vh to allow scrolling within DraggablePanel
+          className="active-feature-panel"
+        >
+          <div style={{ padding: '20px' }}>
             {renderActivePanel()}
-          </>
+          </div>
+        </DraggablePanel>
+      )}
+
+      {/* LAYER 0: GLOBAL VIEWER (Right/Main) */}
+      <div className="viewport-main" style={{ flex: 1, position: 'relative', zIndex: 1 }}>
+        <MoleculeViewer />
+        <FloatingToolbar />
+
+        {/* Overlay for Landing if needed in center */}
+        {activeTab === 'landing' && (
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none' // Let clicks pass if landing is just visual, or auto if interactive
+          }}>
+            <div style={{ pointerEvents: 'auto' }}>
+              <LandingPanel />
+            </div>
+          </div>
         )}
       </div>
     </div>

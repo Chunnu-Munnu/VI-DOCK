@@ -1,6 +1,6 @@
 import re
 
-with open(r'C:\Users\user\AppData\Local\Temp\simdock_xxtirosj\output.sd') as f:
+with open(r'C:\Users\user\AppData\Local\Temp\vidock_xxtirosj\output.sd') as f:
     content = f.read()
 
 compounds = content.split('$$$$')

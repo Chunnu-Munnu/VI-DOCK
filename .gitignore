@@ -58,6 +58,11 @@ venv/
 .venv/
 *.egg-info/
 
+# Docking output
+SimDock_Projects/
+"VI DOCK_Projects/"
+VI_DOCK_Projects/
+
 # Debug files
 debug_worker*.ts
 test_vina.mjs

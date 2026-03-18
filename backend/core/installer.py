@@ -26,7 +26,7 @@ class DependencyInstaller:
     def __init__(self, parent_window=None):
         self.parent = parent_window
         self.config_manager = get_config_manager()
-        self.temp_dir = Path(tempfile.gettempdir()) / "simdock_installers"
+        self.temp_dir = Path(tempfile.gettempdir()) / "vidock_installers"
         self.temp_dir.mkdir(exist_ok=True)
         
         # URLs - These should ideally be configurable or fetched from a reliable source

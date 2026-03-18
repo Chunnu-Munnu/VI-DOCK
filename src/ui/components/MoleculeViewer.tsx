@@ -148,48 +148,46 @@ export function MoleculeViewer() {
 
             // Add receptor
             let receptorModel: any = null;
-            if (receptorFile?.content) {
+            if (receptorFile?.content && typeof receptorFile.content === 'string' && receptorFile.content.length > 50) {
                 // If it's explicitly sdf or ends in .sdf, use sdf. Vina needs PDBQT but viewer can show others.
                 let format = receptorFile.format || 'pdb';
                 if (format === 'pdbqt') format = 'pdb'; // 3Dmol doesn't support pdbqt natively
 
-                receptorModel = viewer.addModel(receptorFile.content, format);
-
-                // Safe check: Ensure model exists AND has atoms
-                if (receptorModel && typeof receptorModel.selectedAtoms === 'function' && receptorModel.selectedAtoms().length > 0) {
-                    // atomCount available via receptorModel.selectedAtoms().length if needed
+                try {
+                    receptorModel = viewer.addModel(receptorFile.content, format);
 
                     // Apply style based on view mode
-                    try {
+                    if (receptorModel) {
                         if (viewMode === 'cartoon') {
-                            viewer.setStyle({ model: receptorModel }, { cartoon: { color: 'spectrum' } });
+                            try { viewer.setStyle({ model: receptorModel }, { cartoon: { color: 'spectrum' } }); } catch (e) { }
                         } else if (viewMode === 'sticks') {
-                            viewer.setStyle({ model: receptorModel }, { stick: { colorscheme: 'Jmol' } });
+                            try { viewer.setStyle({ model: receptorModel }, { stick: { colorscheme: 'Jmol' } }); } catch (e) { }
                         } else if (viewMode === 'surface') {
                             // Surface Mode: Ghost cartoon + Teal VDW Surface
-                            viewer.setStyle({ model: receptorModel }, { cartoon: { color: 'spectrum', opacity: 0.3 } });
+                            try { viewer.setStyle({ model: receptorModel }, { cartoon: { color: 'spectrum', opacity: 0.3 } }); } catch (e) { }
 
-                            // Force surface generation with a slight delay if needed, but direct call is usually better
-                            // Use 'all' selection for safety
+                            // Force surface generation with a slight delay or check
                             try {
                                 const surfaceColor = theme === 'light' ? '#38BDF8' : '#2FACB2';
-                                viewer.addSurface(window.$3Dmol.SurfaceType.VDW, {
-                                    opacity: 0.85,
-                                    color: surfaceColor,
-                                    quality: 0 // set to 0 or 1. 0 might be safer for basic surface? Using 1 involves more compute.
-                                }, { model: receptorModel });
+                                // Check if atoms exist before adding surface to prevent crash
+                                if (receptorModel.selectedAtoms().length > 0) {
+                                    viewer.addSurface(window.$3Dmol.SurfaceType.VDW, {
+                                        opacity: 0.85,
+                                        color: surfaceColor
+                                    }, { model: receptorModel });
+                                }
                             } catch (surfaceErr) {
                                 console.warn('[MoleculeViewer] Surface generation failed', surfaceErr);
                             }
                         }
-                    } catch (styleErr) {
-                        console.error('[MoleculeViewer] Error applying style to receptor:', styleErr);
                     }
+                } catch (e) {
+                    console.error("Error adding/styling receptor model:", e);
                 }
             }
 
             // ADD LIGAND
-            if (ligandContent && ligandContent.trim().length > 0) {
+            if (ligandContent && typeof ligandContent === 'string' && ligandContent.trim().length > 10) {
                 // Smart format detection
                 let format = 'pdb'; // Default
                 const contentLower = ligandContent.toLowerCase();
@@ -202,26 +200,29 @@ export function MoleculeViewer() {
                 if (isSDF && !hasPdbAtoms) format = 'sdf';
                 else format = 'pdb'; // Force PDB for PDBQT content as 3Dmol handles it better
 
-                const ligandModel = viewer.addModel(ligandContent, format);
-
-                if (ligandModel && typeof ligandModel.selectedAtoms === 'function' && ligandModel.selectedAtoms().length > 0) {
-                    try {
+                try {
+                    const ligandModel = viewer.addModel(ligandContent, format);
+                    if (ligandModel) {
                         viewer.setStyle({ model: ligandModel }, {
                             stick: { colorscheme: 'greenCarbon', radius: 0.3 },
-                            sphere: { colorscheme: 'greenCarbon', scale: 0.3 }
+                            sphere: { scale: 0.3, colorscheme: 'greenCarbon' }
                         });
-                    } catch (styleErr) { console.error(styleErr); }
+                    }
+                } catch (e) {
+                    console.error("Error adding ligand model:", e);
                 }
             }
 
-            viewer.zoomTo();
-            viewer.render();
+            try {
+                viewer.zoomTo();
+                viewer.render();
+            } catch (e) { console.error("Error rendering viewer:", e); }
             // console.timeEnd('[MoleculeViewer] Update Models');
 
         } catch (error) {
             console.error('Error updating viewer models:', error);
         }
-    }, [receptorFile, ligandFile, viewMode, isReady, result, selectedPose]); // Removed params/showBox from dependency
+    }, [receptorFile, ligandFile, viewMode, isReady, result, selectedPose, theme]); // Added theme dependency
 
     // EFFECT 2: UPDATE BOX/SHAPES (Light Operation - Runs when box params change)
     useEffect(() => {
@@ -249,25 +250,41 @@ export function MoleculeViewer() {
 
                 const edges = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
 
-                for (const [i, j] of edges) {
-                    viewer.addCylinder({
-                        start: { x: corners[i][0], y: corners[i][1], z: corners[i][2] },
-                        end: { x: corners[j][0], y: corners[j][1], z: corners[j][2] },
-                        radius: 0.05,
-                        color: '#00d9ff',
-                        fromCap: true,
-                        toCap: true,
-                    });
+                try {
+                    for (const [i, j] of edges) {
+                        // Check if corners exist before accessing
+                        if (corners[i] && corners[j]) {
+                            viewer.addCylinder({
+                                start: { x: corners[i][0], y: corners[i][1], z: corners[i][2] },
+                                end: { x: corners[j][0], y: corners[j][1], z: corners[j][2] },
+                                radius: 0.05,
+                                color: '#00d9ff',
+                                fromCap: true,
+                                toCap: true,
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error drawing box edges", e);
                 }
 
-                viewer.addBox({
-                    center: { x: centerX, y: centerY, z: centerZ },
-                    dimensions: { w: sizeX, h: sizeY, d: sizeZ },
-                    color: theme === 'dark' ? '#00ffff' : '#00d9ff', // Brighter cyan in dark mode
-                    opacity: theme === 'dark' ? 0.6 : 0.45           // Higher opacity in dark mode
-                });
+                // Add transparent box
+                // 3Dmol doesn't have a direct 'addBox' for visualization usually, 
+                // but if we are using a shape spec it might work if the library version supports it.
+                // It's safer to stick to cylinders for edges if addBox is problematic or shimmed.
+                // Assuming addBox works as intended in your version, keeping it but wrapping in try.
+                try {
+                    viewer.addBox({
+                        center: { x: centerX, y: centerY, z: centerZ },
+                        dimensions: { w: sizeX, h: sizeY, d: sizeZ },
+                        color: theme === 'dark' ? '#00ffff' : '#00d9ff', // Brighter cyan in dark mode
+                        opacity: theme === 'dark' ? 0.1 : 0.1           // Lower opacity to avoid obscuring
+                    });
+                } catch (e) {
+                    // console.warn("addBox not supported or failed", e);
+                }
             }
-            viewer.render();
+            try { viewer.render(); } catch (e) { }
 
         } catch (error) {
             console.error('Error updating viewer shapes:', error);
@@ -300,7 +317,7 @@ export function MoleculeViewer() {
                 {isReady && !receptorFile && !ligandFile && (
                     <div className={`viewer-overlay viewer-placeholder ${theme}`}>
                         <span className="placeholder-icon"><Dna size={80} strokeWidth={1} /></span>
-                        <p>SimDock 3D Space</p>
+                        <p>VI DOCK 3D Space</p>
                     </div>
                 )}
             </div>

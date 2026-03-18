@@ -18,6 +18,8 @@ var/
 wheels/
 *.egg-info/
 SimDock_Projects/
+"VI DOCK_Projects/"
+VI_DOCK_Projects/
 looks/
 .installed.cfg
 *.egg
@@ -25,6 +27,7 @@ MANIFEST
 
 # Virtual Environments
 venv/
+.venv/
 env/
 ENV/
 Miniconda3/

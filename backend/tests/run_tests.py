@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test runner for SimDock unit tests.
+Test runner for VI DOCK unit tests.
 """
 
 import unittest

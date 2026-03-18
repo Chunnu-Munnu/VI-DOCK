@@ -13,7 +13,9 @@ import {
     Database,
     ChevronLeft,
     ChevronRight,
-    Layers
+    Layers,
+    PanelLeftClose,
+    PanelLeftOpen
 } from 'lucide-react';
 import '../styles/Sidebar.css';
 
@@ -29,6 +31,7 @@ export function Sidebar() {
     const navRef = useRef<HTMLElement>(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const tabs: TabConfig[] = [
         { id: 'prep', label: 'Molecule Import', icon: <TestTube2 size={20} /> },
@@ -70,13 +73,22 @@ export function Sidebar() {
     };
 
     return (
-        <aside className="sidebar">
+        <aside className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
             <div className="sidebar-header">
-                <h1 className="app-logo">
-                    <span className="logo-icon"><Atom size={32} /></span>
-                    <span className="logo-text">SimDock</span>
-                </h1>
-                <p className="app-subtitle">Browser-Based Molecular Docking</p>
+                <div className="header-content">
+                    <h1 className="app-logo">
+                        <span className="logo-icon"><Atom size={32} /></span>
+                        <span className="logo-text">VI DOCK</span>
+                    </h1>
+                    <p className="app-subtitle">Browser-Based Molecular Docking</p>
+                </div>
+                <button
+                    className="sidebar-toggle"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    title={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+                >
+                    {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+                </button>
             </div>
 
             {/* Scroll Up Button */}
@@ -97,6 +109,7 @@ export function Sidebar() {
                             className={`nav-tab ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`}
                             onClick={() => !isDisabled && setActiveTab(tab.id)}
                             disabled={isDisabled}
+                            title={!isExpanded ? tab.label : ''}
                         >
                             <span className="tab-icon">{tab.icon}</span>
                             <span className="tab-label">{tab.label}</span>
@@ -119,7 +132,7 @@ export function Sidebar() {
                 </button>
                 <div className="spacer" style={{ height: '10px' }} />
                 <button className="start-over-btn" onClick={startOver}>
-                    <RotateCcw size={16} style={{ marginRight: '8px' }} /> Start Over
+                    <RotateCcw size={16} /> <span className="btn-label">Start Over</span>
                 </button>
                 <div className="footer-info">
                     <p>Powered by AutoDock Vina</p>

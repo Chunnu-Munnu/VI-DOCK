@@ -1,47 +1,15 @@
 {
     "executables": {
-        "obabel": "C:\\Users\\user\\Miniconda3\\Library\\bin\\obabel.exe",
-        "vina": "bin\\vina.exe",
-        "autodock_gpu": "bin\\vina_gpu.exe",
-        "smina": "bin\\smina.exe",
-        "qvina": "bin\\qvina_w.exe",
-        "chimerax": "C:\\Program Files\\ChimeraX 1.10.1\\bin\\ChimeraX.exe",
-        "vmd": "vmd"
-    },
-    "platform_settings": {
-        "windows": {
-            "obabel": "C:\\Users\\user\\Miniconda3\\Library\\bin\\obabel.exe",
-            "vina": "bin\\vina.exe",
-            "autodock_gpu": "bin\\vina_gpu.exe",
-            "chimerax": "C:\\Program Files\\ChimeraX 1.10.1\\bin\\ChimeraX.exe",
-            "vmd": "vmd",
-            "smina": "bin\\smina.exe",
-            "create_no_window": true
-        },
-        "linux": {
-            "obabel": "obabel",
-            "vina": "vina",
-            "chimerax": "chimerax",
-            "vmd": "vmd",
-            "create_no_window": false
-        },
-        "darwin": {
-            "obabel": "obabel",
-            "vina": "vina",
-            "chimerax": "chimerax",
-            "vmd": "vmd",
-            "create_no_window": false
-        }
+        "vina": "bin/vina.exe",
+        "obabel": "obabel"
     },
     "docking": {
         "default_exhaustiveness": 8,
-        "default_refine_percentage": 10,
         "default_box_size": [
             25.0,
             25.0,
             25.0
         ],
-        "box_padding": 5.0,
         "adaptive_exhaustiveness_thresholds": [
             7,
             12
@@ -51,6 +19,12 @@
             16,
             32
         ]
+    },
+    "platform_settings": {
+        "windows": {
+            "vina": "bin/vina.exe",
+            "create_no_window": true
+        }
     },
     "file_formats": {
         "supported_ligand_formats": [
@@ -80,7 +54,7 @@
         "timeout": 30
     },
     "temp": {
-        "temp_dir_prefix": "simdock_",
+        "temp_dir_prefix": "vidock_",
         "cleanup_on_exit": true
     }
 }

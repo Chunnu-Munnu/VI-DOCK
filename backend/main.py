@@ -18,7 +18,7 @@ from installer_logic import DependencyInstaller, InstallerDialog
 from utils.config import get_config_manager
 
 def main():
-    """Main entry point for SimDock 3.1"""
+    """Main entry point for VI DOCK 3.1"""
     # Required for PyInstaller with multiprocessing
     multiprocessing.freeze_support()
     
@@ -26,7 +26,7 @@ def main():
         # Initialize logging
         setup_logging()
         
-        print("Starting SimDock 3.1...")
+        print("Starting VI DOCK 3.1...")
         print("Available docking engines will be detected automatically.")
         
         # Check for dependencies
@@ -38,7 +38,7 @@ def main():
             root.withdraw() # Hide main window
             
             # Show confirmation
-            msg = f"The following components are missing: {', '.join(missing)}.\n\nSimDock can download and install them automatically.\nDo you want to proceed?"
+            msg = f"The following components are missing: {', '.join(missing)}.\n\nVI DOCK can download and install them automatically.\nDo you want to proceed?"
             if tk.messagebox.askyesno("First Time Setup", msg):
                 dlg = InstallerDialog(root, installer, missing)
                 root.wait_window(dlg)
@@ -54,7 +54,7 @@ def main():
         app.run()
         
     except Exception as e:
-        error_msg = f"Failed to start SimDock: {e}\n\n{traceback.format_exc()}"
+        error_msg = f"Failed to start VI DOCK: {e}\n\n{traceback.format_exc()}"
         print(error_msg)
         try:
             tk.messagebox.showerror("Startup Error", error_msg)

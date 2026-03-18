@@ -1,20 +1,8 @@
-# SimDock Pro 3.1 FastAPI Backend Dependencies
-# Python 3.8+
-
-# Web Framework
 fastapi>=0.100.0
 uvicorn[standard]>=0.22.0
-
-# Async HTTP
 httpx>=0.24.0
 requests>=2.25.1
-
-# Data validation
 pydantic>=2.0.0
-
-# Utilities
 python-multipart>=0.0.6
-
-# External dependencies (must be installed separately):
-# - Open Babel ('obabel') - for molecular file conversion
-# - AutoDock Vina ('vina') - for docking calculations
+rdkit>=2023.9.5
+meeko>=0.5.0

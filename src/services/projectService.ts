@@ -1,7 +1,7 @@
 import { openDB, type IDBPDatabase } from 'idb';
 import type { SavedProject } from '../core/types';
 
-const DB_NAME = 'SimDockDB';
+const DB_NAME = 'VI DOCKDB';
 const STORE_NAME = 'projects';
 const VERSION = 1;
 

@@ -73,27 +73,27 @@ export function MolecularPropertiesDisplay({ properties }: MolecularPropertiesDi
             <div className="lipinski-section">
                 <h4>Lipinski's Rule of 5</h4>
                 <div className="lipinski-rules">
-                    <div className={`rule ${properties.molecularWeight <= 500 ? 'pass' : 'fail'}`}>
-                        <span className="rule-icon">{properties.molecularWeight <= 500 ? '✓' : '✗'}</span>
+                    <div className={`rule ${properties.lipinskiReport?.details.mwPass ?? properties.molecularWeight <= 500 ? 'pass' : 'fail'}`}>
+                        <span className="rule-icon">{properties.lipinskiReport?.details.mwPass ?? properties.molecularWeight <= 500 ? '✓' : '✗'}</span>
                         <span>MW ≤ 500 ({properties.molecularWeight})</span>
                     </div>
-                    <div className={`rule ${properties.logP <= 5 ? 'pass' : 'fail'}`}>
-                        <span className="rule-icon">{properties.logP <= 5 ? '✓' : '✗'}</span>
+                    <div className={`rule ${properties.lipinskiReport?.details.logPPass ?? properties.logP <= 5 ? 'pass' : 'fail'}`}>
+                        <span className="rule-icon">{properties.lipinskiReport?.details.logPPass ?? properties.logP <= 5 ? '✓' : '✗'}</span>
                         <span>LogP ≤ 5 ({properties.logP})</span>
                     </div>
-                    <div className={`rule ${properties.hbd <= 5 ? 'pass' : 'fail'}`}>
-                        <span className="rule-icon">{properties.hbd <= 5 ? '✓' : '✗'}</span>
+                    <div className={`rule ${properties.lipinskiReport?.details.hbdPass ?? properties.hbd <= 5 ? 'pass' : 'fail'}`}>
+                        <span className="rule-icon">{properties.lipinskiReport?.details.hbdPass ?? properties.hbd <= 5 ? '✓' : '✗'}</span>
                         <span>HBD ≤ 5 ({properties.hbd})</span>
                     </div>
-                    <div className={`rule ${properties.hba <= 10 ? 'pass' : 'fail'}`}>
-                        <span className="rule-icon">{properties.hba <= 10 ? '✓' : '✗'}</span>
+                    <div className={`rule ${properties.lipinskiReport?.details.hbaPass ?? properties.hba <= 10 ? 'pass' : 'fail'}`}>
+                        <span className="rule-icon">{properties.lipinskiReport?.details.hbaPass ?? properties.hba <= 10 ? '✓' : '✗'}</span>
                         <span>HBA ≤ 10 ({properties.hba})</span>
                     </div>
                 </div>
                 <p className="violations-count">
-                    {properties.lipinskiViolations === 0
-                        ? '🎯 No violations - Good oral bioavailability expected'
-                        : `⚠️ ${properties.lipinskiViolations} violation(s) - May have reduced bioavailability`}
+                    {properties.lipinskiReport?.pass ?? properties.lipinskiViolations === 0
+                        ? `🎯 ${properties.lipinskiViolations} violations - Pass (Good oral bioavailability)`
+                        : `⚠️ ${properties.lipinskiViolations} violation(s) - Fail (May have reduced bioavailability)`}
                 </p>
             </div>
         </div>

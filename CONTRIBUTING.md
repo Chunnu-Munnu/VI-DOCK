@@ -1,4 +1,4 @@
-# Contributing to SimDock Pro
+# Contributing to VI DOCK Pro
 
 Thank you for your interest in contributing! 🎉
 
@@ -7,7 +7,7 @@ Thank you for your interest in contributing! 🎉
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/simdock-new.git
+   git clone https://github.com/YOUR-USERNAME/vidock-new.git
    ```
 3. Install dependencies:
    ```bash

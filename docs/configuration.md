@@ -26,7 +26,7 @@ headers: {
 
 ## WASM Modules
 
-SimDock uses three WebAssembly modules:
+VI DOCK uses three WebAssembly modules:
 
 | Module | Purpose | Location |
 |--------|---------|----------|
@@ -70,7 +70,7 @@ Themes are defined in `src/index.css` using CSS custom properties:
 ## Project Structure
 
 ```
-simdock-new/
+vidock-new/
 ├── src/
 │   ├── components/    # React UI components
 │   ├── services/      # WASM integration

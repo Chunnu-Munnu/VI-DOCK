@@ -27,24 +27,24 @@
 
 .engine-toggle-group {
     display: flex;
-    gap: 12px;
-    background: var(--bg-surface-secondary);
-    padding: 6px;
-    border-radius: 12px;
-    border: var(--border-subtle);
+    gap: 1px;
+    /* Sharp connection */
+    background: var(--border-divider);
+    padding: 1px;
+    border-radius: 0;
+    border: none;
 }
 
 .engine-btn {
     flex: 1;
     padding: 12px;
-    background: transparent;
+    background: var(--bg-surface);
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     color: var(--text-secondary);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    border: 1px solid transparent;
 }
 
 .engine-btn:hover {
@@ -53,19 +53,20 @@
 }
 
 .engine-btn.active {
-    background: var(--bg-elevated);
-    color: var(--accent-primary);
-    border: 1px solid var(--accent-primary);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    background: var(--text-primary);
+    color: var(--bg-surface);
+    /* Invert for active */
+    border: none;
+    box-shadow: none;
     font-weight: 600;
 }
 
 .example-btn {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #2FACB2 0%, #2FACB2 100%);
-    border: none;
-    border-radius: 10px;
-    color: #1a1a2e;
+    background: var(--bg-surface);
+    border: 1px solid var(--text-primary);
+    border-radius: 0;
+    color: var(--text-primary);
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
@@ -73,22 +74,25 @@
 }
 
 .example-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(47, 172, 178, 0.3);
+    background: var(--text-primary);
+    color: var(--bg-surface);
+    transform: none;
+    box-shadow: none;
 }
 
 .input-section {
-    background: var(--bg-panel-professional);
-    border-radius: var(--radius-panel);
-    padding: 24px;
-    border: var(--border-subtle);
+    background: transparent;
+    border-radius: 0;
+    padding: 24px 0;
+    border-top: 1px solid var(--border-divider);
     box-shadow: none;
 }
 
 .files-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr;
+    /* Stack for better access in sidebar */
+    gap: 20px;
 }
 
 .file-column {
@@ -107,7 +111,8 @@
 .file-option input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #0096ff;
+    accent-color: var(--text-primary);
+    border: 1px solid var(--text-secondary);
 }
 
 .file-option label {
@@ -117,25 +122,27 @@
 
 .auto-box-btn {
     padding: 12px;
-    background: rgba(0, 150, 255, 0.1);
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    border-radius: 10px;
-    color: #0096ff;
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    border-radius: 0;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .auto-box-btn:hover {
-    background: rgba(0, 150, 255, 0.15);
-    border-color: rgba(0, 150, 255, 0.5);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    background: var(--bg-highlight);
 }
 
 .viewer-section {
     height: 500px;
-    border-radius: 16px;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-divider);
+    box-shadow: none;
 }
 
 .params-section {
@@ -154,10 +161,11 @@
     align-items: center;
     gap: 10px;
     padding: 16px;
-    background: rgba(255, 100, 100, 0.1);
-    border: 1px solid rgba(255, 100, 100, 0.3);
-    border-radius: 12px;
-    color: #d33;
+    background: transparent;
+    border: 1px solid var(--text-primary);
+    /* Use white for warning in B&W theme */
+    border-radius: 0;
+    color: var(--text-primary);
     font-size: 0.95rem;
 }
 
@@ -167,9 +175,9 @@
     align-items: center;
     gap: 12px;
     padding: 24px;
-    background: var(--bg-highlight);
-    border-radius: var(--radius-panel);
-    border: var(--border-subtle);
+    background: transparent;
+    border-radius: 0;
+    border-top: 1px solid var(--border-divider);
     box-shadow: none;
 }
 
@@ -177,25 +185,33 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 18px 48px;
-    background: linear-gradient(135deg, #2FACB2 0%, #2FACB2 100%);
+    padding: 16px 48px;
+    background: var(--text-primary);
+    /* Geometric White Button */
     border: none;
-    border-radius: 14px;
-    color: #1a1a2e;
-    font-size: 1.2rem;
+    border-radius: 0;
+    color: var(--bg-surface);
+    /* Black Text */
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    width: 100%;
+    justify-content: center;
 }
 
 .run-btn:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(47, 172, 178, 0.4);
+    background: #cccccc;
+    /* Light Gray Hover */
+    transform: none;
+    box-shadow: none;
 }
 
 .run-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background: var(--bg-highlight);
+    color: var(--text-disabled);
 }
 
 .run-icon {
@@ -204,8 +220,8 @@
 
 .run-hint {
     margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+    font-size: 0.8rem;
+    color: var(--text-mono);
 }
 
 @media (max-width: 900px) {

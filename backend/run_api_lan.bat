@@ -1,9 +1,9 @@
 @echo off
-REM Run SimDock Pro API on All Network Interfaces (LAN Mode)
+REM Run VI DOCK Pro API on All Network Interfaces (LAN Mode)
 set PYTHONPATH=%~dp0
 
 echo ========================================================
-echo   SimDock Pro 3.1 - Public API Server
+echo   VI DOCK Pro 3.1 - Public API Server
 echo ========================================================
 echo.
 echo [INFO] This server is visible to other computers on your network.

@@ -1,0 +1,27 @@
+{
+    "last_run_type": "single",
+    "receptor_pdbqt_path": "D:\\Amogh Projects\\SIMDOCK\\simdock-pro\\backend\\VI DOCK_Projects\\WebSession_1773676833405_20260316_213033_4bbfe896\\docking_runs\\docking_session_20260316_213036_3d6c0d42\\receptor.pdbqt",
+    "ligand_pdbqt_path": "D:\\Amogh Projects\\SIMDOCK\\simdock-pro\\backend\\VI DOCK_Projects\\WebSession_1773676833405_20260316_213033_4bbfe896\\ligands\\ligand.pdbqt",
+    "single_docking_output_path": "D:\\Amogh Projects\\SIMDOCK\\simdock-pro\\backend\\VI DOCK_Projects\\WebSession_1773676833405_20260316_213033_4bbfe896\\docking_runs\\docking_session_20260316_213036_3d6c0d42\\out_ligand.pdbqt",
+    "grid_center": [
+        1.01,
+        47.31,
+        106.94
+    ],
+    "grid_size": [
+        70.18,
+        53.03,
+        62.85
+    ],
+    "exhaustiveness": 8,
+    "last_results": [
+        {
+            "Mode": 1,
+            "Affinity (kcal/mol)": -4.765,
+            "RMSD L.B.": 0.0,
+            "RMSD U.B.": 0.0,
+            "Engine": "AutoDock Vina"
+        }
+    ],
+    "engine": "vina"
+}

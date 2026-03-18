@@ -1,5 +1,5 @@
 import { useDockingStore } from '../../store/dockingStore';
-import { Atom, ArrowRight, TestTube2, Layers } from 'lucide-react';
+import { Atom, Layers, TestTube2, ArrowRight } from 'lucide-react';
 import '../styles/LandingPanel.css';
 
 export function LandingPanel() {
@@ -7,19 +7,23 @@ export function LandingPanel() {
 
     return (
         <div className="landing-overlay">
+            {/* CSS Gradient Background (Stable Fallback) */}
+            <div className="landing-bg-gradient" />
+
+            {/* Foreground Content */}
             <div className="landing-content">
 
                 {/* Header */}
-                <div className="landing-header">
+                <div className="landing-header" style={{ pointerEvents: 'auto' }}>
                     <div className="logo-badge">
                         <Atom size={48} color="#00d2ff" />
                     </div>
-                    <h1>SimDock <span className="pro-tag">Pro</span></h1>
+                    <h1>VI DOCK <span className="pro-tag">Pro</span></h1>
                     <p className="subtitle">Advanced Browser-Based Molecular Docking System</p>
                 </div>
 
                 {/* Mode Selection Cards */}
-                <div className="mode-grid">
+                <div className="mode-grid" style={{ pointerEvents: 'auto' }}>
 
                     {/* Single Docking Card */}
                     <div className="mode-card single" onClick={() => setActiveTab('prep')}>
@@ -54,7 +58,7 @@ export function LandingPanel() {
                 </div>
 
                 {/* Footer */}
-                <div className="landing-footer">
+                <div className="landing-footer" style={{ pointerEvents: 'auto' }}>
                     <span className="version">v3.1.0</span>
                 </div>
 

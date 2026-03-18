@@ -14,15 +14,16 @@ const BackgroundGrid = () => {
 
         // --- THEME COLORS ---
         const isLight = theme === 'light';
-        // Dark: #0F172A (Slate 900) | Light: #F8FAFC (Clinical White)
-        const bgHex = isLight ? 0xF8FAFC : 0x0F172A;
-        const fogHex = bgHex;
+        // Sharp Black or White Background
+        const bgHex = isLight ? 0xffffff : 0x000000;
 
         scene.background = new THREE.Color(bgHex);
-        scene.fog = new THREE.FogExp2(fogHex, 0.02);
+        // Minimal fog for depth, but keep it clean
+        scene.fog = new THREE.FogExp2(bgHex, 0.015);
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 2, 12);
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 10);
+        camera.lookAt(0, 0, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -32,44 +33,40 @@ const BackgroundGrid = () => {
         mountRef.current.appendChild(renderer.domElement);
 
         // --- GRID CONFIG ---
-        // Dark: 0x38BDF8 (Biotech Blue) | Light: 0xCBD5E1 (Slate Gray)
-        const gridColor = isLight ? 0xCBD5E1 : 0x38BDF8;
-        const gridOpacity = isLight ? 0.6 : 0.15; // Lower opacity for dark mode subtlety
+        // High contrast grid lines
+        const isDark = theme === 'dark';
+        const gridColorMain = isDark ? 0x444444 : 0xcccccc;
+        const gridColorSub = isDark ? 0x222222 : 0xeeeeee;
+        const centerColor = isDark ? 0x666666 : 0xaaaaaa;
 
-        const createGrid = (yPosition: number, opacity: number) => {
-            const grid = new THREE.GridHelper(100, 50, gridColor, gridColor);
-            grid.position.y = yPosition;
+        // Main Grid (10x10 blocks)
+        const mainGrid = new THREE.GridHelper(100, 10, centerColor, gridColorMain);
+        (mainGrid.material as THREE.Material).transparent = true;
+        (mainGrid.material as THREE.Material).opacity = 0.4;
+        scene.add(mainGrid);
 
-            const material = grid.material as THREE.LineBasicMaterial;
-            material.transparent = true;
-            material.opacity = opacity;
+        // Sub Grid (100x100 blocks)
+        const subGrid = new THREE.GridHelper(100, 100, centerColor, gridColorSub);
+        (subGrid.material as THREE.Material).transparent = true;
+        (subGrid.material as THREE.Material).opacity = 0.15;
+        scene.add(subGrid);
 
-            return grid;
-        };
+        // Glassy grey base plane
+        const planeGeo = new THREE.PlaneGeometry(100, 100);
+        const planeMat = new THREE.MeshBasicMaterial({
+            color: isDark ? 0x111111 : 0xffffff,
+            transparent: true,
+            opacity: 0.25, // Glassy grey opaqueness
+            side: THREE.DoubleSide
+        });
+        const plane = new THREE.Mesh(planeGeo, planeMat);
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.y = -0.01; // slightly below grids
+        scene.add(plane);
 
-        // 1. Floor
-        const gridBottom = createGrid(-4, gridOpacity);
-        scene.add(gridBottom);
-
-        // 2. Ceiling
-        const gridTop = createGrid(4, gridOpacity * 0.5);
-        scene.add(gridTop);
-
-        // 3. Horizon
-        const gridBack = new THREE.GridHelper(100, 50, gridColor, gridColor);
-        gridBack.rotation.x = Math.PI / 2;
-        gridBack.position.z = -30;
-        (gridBack.material as THREE.LineBasicMaterial).transparent = true;
-        (gridBack.material as THREE.LineBasicMaterial).opacity = gridOpacity * 0.3;
-        scene.add(gridBack);
-
-        // Animation
-        let time = 0;
         const animate = () => {
             requestAnimationFrame(animate);
-            time += 0.002;
-            gridBottom.position.z = (time * 2) % 2;
-            gridTop.position.z = (time * 2) % 2;
+            // Static grid, no movement
             renderer.render(scene, camera);
         };
         animate();
@@ -86,7 +83,7 @@ const BackgroundGrid = () => {
             if (mountRef.current) mountRef.current.innerHTML = '';
             renderer.dispose();
         };
-    }, [theme]); // Re-run when theme changes
+    }, [theme]);
 
     return (
         <div
@@ -97,7 +94,7 @@ const BackgroundGrid = () => {
                 left: 0,
                 width: '100vw',
                 height: '100vh',
-                zIndex: 0, /* Background layer, ensure App content is transparent or higher z-index */
+                zIndex: 0,
                 pointerEvents: 'none'
             }}
         />

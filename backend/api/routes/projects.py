@@ -10,7 +10,7 @@ from core.project_manager import ProjectBrowser # Import ProjectBrowser
 router = APIRouter()
 
 # Default base directory for projects
-PROJECTS_ROOT = Path("SimDock_Projects").resolve()
+PROJECTS_ROOT = Path("VI DOCK_Projects").resolve()
 PROJECTS_ROOT.mkdir(exist_ok=True)
 
 @router.post("/", response_model=ProjectResponse)
@@ -295,7 +295,7 @@ async def fetch_ligand(
         # 2. Download 3D SDF
         print(f"Downloading 3D SDF for CID: {cid}")
         
-        headers = {'User-Agent': 'SimDockPro/3.1 (Educational; contact@example.com)'}
+        headers = {'User-Agent': 'VI DOCKPro/3.1 (Educational; contact@example.com)'}
         sdf_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/SDF?record_type=3d"
         
         resp = requests.get(sdf_url, headers=headers)

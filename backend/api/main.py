@@ -6,8 +6,8 @@ from api.routes import projects, docking, analysis, system, conversion, fetch
 from core.project_manager import ProjectManager
 
 app = FastAPI(
-    title="SimDock Pro 3.1 API",
-    description="REST API for SimDock Pro Desktop Backend",
+    title="VI DOCK Pro 3.1 API",
+    description="REST API for VI DOCK Pro Desktop Backend",
     version="3.1.0"
 )
 
@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 # Mount Static Files (Project Data) for Visualization
-projects_dir = Path("SimDock_Projects").resolve()
+projects_dir = Path("VI DOCK_Projects").resolve()
 projects_dir.mkdir(exist_ok=True)
 app.mount("/files", StaticFiles(directory=str(projects_dir)), name="files")
 
@@ -35,4 +35,4 @@ app.include_router(fetch.router, prefix="/fetch", tags=["Fetch"])
 
 @app.get("/")
 def read_root():
-    return {"status": "online", "service": "SimDock Pro 3.1 API"}
+    return {"status": "online", "service": "VI DOCK Pro 3.1 API"}

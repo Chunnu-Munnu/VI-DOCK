@@ -7,11 +7,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
-    /* Slight dim to pop the cards */
-    backdrop-filter: blur(10px);
+    background: transparent;
     z-index: 1000;
-    animation: fadeIn 0.8s ease-out;
+}
+
+/* New Gradient Background */
+.landing-bg-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(20, 20, 50, 0.95), #000);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.landing-bg-gradient::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 210, 255, 0.1) 60deg, transparent 120deg);
+    animation: rotate 20s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .landing-content {
@@ -21,6 +47,7 @@
     gap: 3rem;
     max-width: 900px;
     width: 90%;
+    z-index: 1;
 }
 
 /* Header */
@@ -81,7 +108,7 @@
     flex: 1;
     min-width: 300px;
     max-width: 400px;
-    background: var(--bg-panel-professional);
+    background: rgba(30, 30, 40, 0.6); /* Slightly more opaque for readability over gradient */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 2.5rem;
@@ -98,6 +125,7 @@
     transform: translateY(-10px);
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(40, 40, 50, 0.8);
 }
 
 .card-bg {
@@ -123,7 +151,6 @@
 
 .mode-card.batch:hover {
     border-top: 2px solid #570df8;
-    /* Primary Purple */
     box-shadow: 0 20px 40px rgba(87, 13, 248, 0.15);
 }
 
@@ -135,7 +162,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-primary);
+    color: white;
     transition: transform 0.4s;
 }
 
@@ -203,13 +230,8 @@
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes slideDown {
@@ -217,7 +239,6 @@
         transform: translateY(-30px);
         opacity: 0;
     }
-
     to {
         transform: translateY(0);
         opacity: 1;

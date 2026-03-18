@@ -1,0 +1,40 @@
+{
+    "project_info": {
+        "name": "WebSession_1773815071750",
+        "created": "2026-03-18T11:54:31.761574",
+        "version": "1.0",
+        "vidock_version": "3.1",
+        "modified": "2026-03-18T11:54:34.502753"
+    },
+    "files": {
+        "receptors": [
+            {
+                "name": "receptor.pdbqt",
+                "path": "receptors\\receptor.pdbqt",
+                "added": "2026-03-18T11:54:31.806586",
+                "file_size": 226799
+            }
+        ],
+        "ligands": [
+            {
+                "name": "ligand.pdbqt",
+                "path": "ligands\\ligand.pdbqt",
+                "added": "2026-03-18T11:54:31.826045",
+                "file_size": 1644
+            }
+        ],
+        "results": []
+    },
+    "docking_sessions": [
+        {
+            "name": "docking_session_20260318_115434_67a994f0",
+            "session_file": "docking_runs\\docking_session_20260318_115434_67a994f0\\session.json",
+            "created": "2026-03-18T11:54:34.502737",
+            "type": "single",
+            "ligand_count": 0,
+            "results_count": 9
+        }
+    ],
+    "settings": {},
+    "metadata": {}
+}

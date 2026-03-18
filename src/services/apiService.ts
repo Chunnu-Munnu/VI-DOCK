@@ -70,7 +70,7 @@ export const apiService = {
     },
 
     getDownloadUrl(relativePath: string) {
-        const key = 'SimDock_Projects';
+        const key = 'VI DOCK_Projects';
         if (relativePath.includes(key)) {
             const part = relativePath.split(key)[1];
             const cleanPart = part.replace(/\\/g, '/');

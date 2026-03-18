@@ -1078,7 +1078,7 @@ class LeDockEngine(BaseDockingEngine):
             if os.path.exists(expected_output):
                 # Copy to final output path (and convert to PDBQT if needed, but .dok is PDB-like)
                 # For consistency, we might want to convert .dok to .pdbqt or just keep it.
-                # SimDock's visualizer (ChimeraX) can read PDB. .dok is essentially PDB.
+                # VI DOCK's visualizer (ChimeraX) can read PDB. .dok is essentially PDB.
                 # Let's rename it to .pdb for easier handling by visualizers
                 final_output_pdb = str(Path(output_path).with_suffix('.pdb'))
                 import shutil

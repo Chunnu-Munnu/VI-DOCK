@@ -9,7 +9,7 @@ from .database_manager import DatabaseManager
 
 class ProjectManager:
     """
-    Manages SimDock projects with organized folder structure and file management.
+    Manages VI DOCK projects with organized folder structure and file management.
     Each project is stored in a dedicated folder with all necessary files.
     """
     
@@ -59,7 +59,7 @@ class ProjectManager:
                     'name': project_name,
                     'created': datetime.now().isoformat(),
                     'version': '1.0',
-                    'simdock_version': '3.1'
+                    'vidock_version': '3.1'
                 },
                 'files': {
                     'receptors': [],

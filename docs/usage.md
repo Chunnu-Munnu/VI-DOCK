@@ -2,7 +2,7 @@
 
 ## Overview
 
-SimDock Pro is a molecular docking application that connects to a FastAPI backend for AutoDock Vina computations. The frontend provides an intuitive interface while the backend handles the heavy docking calculations.
+VI DOCK Pro is a molecular docking application that connects to a FastAPI backend for AutoDock Vina computations. The frontend provides an intuitive interface while the backend handles the heavy docking calculations.
 
 ## Workflow
 

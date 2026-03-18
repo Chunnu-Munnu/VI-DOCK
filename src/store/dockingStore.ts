@@ -120,7 +120,7 @@ export const useDockingStore = create<DockingStore>()(
             clearConsoleOutput: () => set({ consoleOutput: [] }),
 
             setResult: (result) => {
-                console.info('[SimDock] setResult called with', result?.poses?.length ?? 0, 'poses');
+                console.info('[VI DOCK] setResult called with', result?.poses?.length ?? 0, 'poses');
                 set({ result });
             },
             setSelectedPose: (selectedPose) => set({ selectedPose }),
@@ -155,7 +155,7 @@ export const useDockingStore = create<DockingStore>()(
             toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
         }),
         {
-            name: 'simdock-docking-state',
+            name: 'vidock-docking-state',
             // Exclude transient state from persistence
             // Note: result is NOT persisted to avoid loading corrupted pose data
             partialize: (state) => ({

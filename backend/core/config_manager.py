@@ -87,7 +87,7 @@ class ConfigManager:
                 "timeout": 30
             },
             "temp": {
-                "temp_dir_prefix": "simdock_",
+                "temp_dir_prefix": "vidock_",
                 "cleanup_on_exit": True
             }
         }
@@ -436,7 +436,7 @@ class ConfigManager:
     def create_config_wizard(self) -> bool:
         """Interactive configuration wizard for first-time setup."""
         try:
-            print("=== SimDock Configuration Wizard ===")
+            print("=== VI DOCK Configuration Wizard ===")
             print("This wizard will help you configure the paths to required executables.")
             print("If you're not sure, you can press Enter to use the default values.")
             print()

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="simdock",
+    name="vidock",
     version="3.1.0",
     packages=find_packages(),
     install_requires=[
@@ -11,16 +11,16 @@ setup(
     python_requires='>=3.8',
     entry_points={
         'console_scripts': [
-            'simdock=main:main',
+            'vidock=main:main',
         ],
     },
     include_package_data=True,
     package_data={
-        'simdock': ['*.json'],
+        'vidock': ['*.json'],
     },
     author="Arjun Subbaraman",
     author_email="Arjun.subbaraman13@gmail.com",
     description="Advanced Molecular Docking GUI with ChimeraX integration",
     keywords="docking vina chimerax molecular visualization",
-    url="https://github.com/messiay/simdock",
+    url="https://github.com/messiay/vidock",
 )

@@ -1,20 +1,43 @@
-# SimDock 3.1 - Molecular Docking GUI
+# VI DOCK 3.1 - Backend Server 🧬
 
-Advanced molecular docking interface with ChimeraX visualization integration.
+The backend for VI DOCK provides a high-performance REST API powered by FastAPI, and integrates directly with AutoDock Vina, RDKit, and Open Babel for molecular processing and docking.
 
-## Prerequisites
+## 🚀 How to Run the API Server
 
-### Required Software:
-1. **Python 3.8+** - [Download here](https://python.org)
-2. **UCSF ChimeraX** - [Download here](https://www.cgl.ucsf.edu/chimerax/)
-3. **AutoDock Vina** - [Download here](https://vina.scripps.edu/)
-4. **Open Babel** - [Download here](https://openbabel.org/)
+The frontend application (`simdock-pro/src`) expects this backend API to be running on `http://127.0.0.1:8000`.
 
-### Installation Steps:
+### In VS Code Terminal:
+1. Navigate to this `backend` directory:
+   ```bash
+   cd "d:\Amogh Projects\SIMDOCK\simdock-pro\backend"
+   ```
+2. Run the provided startup script:
+   ```bash
+   .\run_api_clean.bat
+   ```
 
-#### Windows:
-1. Run `install_windows.bat`
-2. Or manually:
-   ```cmd
-   pip install -r requirements.txt
-   pip install -e .
+*The `run_api_clean.bat` script is designed to automatically locate your local Python virtual environment (`.venv`), Miniconda, or Anaconda installations to launch `uvicorn` correctly.*
+
+### Manual Startup (Alternative):
+If you prefer to start the server manually using your own Python environment:
+```cmd
+pip install -r requirements.txt
+uvicorn api.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+## 🖥️ Standalone GUI (Alternative Mode)
+
+Aside from the browser-based platform, the backend also contains a legacy standalone Tkinter/ChimeraX GUI.
+To launch the standalone GUI instead of the Web API:
+
+```bash
+.\run_simdock.bat
+```
+*(This requires UCSF ChimeraX to be installed for visualization).*
+
+## 📦 Prerequisites
+
+If your system doesn't have the required bioinformatics tools, the backend can often auto-download and configure them. However, you should broadly have:
+1. **Python 3.9+** or **Miniconda**
+2. **AutoDock Vina**
+3. **Open Babel**

@@ -63,7 +63,7 @@ def setup_vina():
     if os.path.exists(vina_exe):
         print(f"[OK] AutoDock Vina found at {vina_exe}")
     else:
-        print("[INFO] AutoDock Vina not found. SimDock will use Smina (compatible) if available.")
+        print("[INFO] AutoDock Vina not found. VI DOCK will use Smina (compatible) if available.")
 
 def setup_qvina():
     # QuickVina is now handled by manual install

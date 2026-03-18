@@ -17,6 +17,8 @@ interface BatchMolecule {
     name: string;
     content: string;
     source: 'upload' | 'pdb' | 'pubchem';
+    lipinskiPass?: boolean;
+    lipinskiViolations?: number;
 }
 
 interface BatchJob {
@@ -492,10 +494,11 @@ export function BatchPanel() {
             <div className="batch-footer">
                 <div className="job-summary">
                     {receptors.length * ligands.length} Potential Jobs
+                    {ligands.length > 5 && <span style={{ color: 'var(--status-fail)', marginLeft: '10px' }}>⚠️ Max 5 Ligands Allowed (Student Guard)</span>}
                 </div>
                 <div className="footer-actions">
                     <button className="secondary-btn" onClick={clearAll}>Clear All</button>
-                    <button className="primary-btn" onClick={runBatch} disabled={isRunning || receptors.length === 0 || ligands.length === 0}>
+                    <button className="primary-btn" onClick={runBatch} disabled={isRunning || receptors.length === 0 || ligands.length === 0 || ligands.length > 5}>
                         {isRunning ? <Loader2 className="spin" size={16} /> : <Play size={16} />}
                         {isRunning ? 'Running...' : 'Run Batch'}
                     </button>

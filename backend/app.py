@@ -19,7 +19,7 @@ from utils.config import get_config_manager
 from core.docking_engine import DockingEngineFactory
 
 st.set_page_config(
-    page_title="SimDock Pro Web",
+    page_title="VI DOCK Pro Web",
     page_icon="🧬",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -63,7 +63,7 @@ def download_pdb(pdb_id, output_dir):
         return None
 
 # --- UI Layout ---
-st.title("🧬 SimDock Pro Web")
+st.title("🧬 VI DOCK Pro Web")
 st.markdown("### GPU-Accelerated Molecular Docking in the Cloud")
 
 # Sidebar - Configuration

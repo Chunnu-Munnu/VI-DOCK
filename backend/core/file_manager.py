@@ -235,7 +235,7 @@ class FileManager:
             print(f"Error converting file: {e}")
             return False
     
-    def create_temp_directory(self, prefix: str = "simdock_") -> str:
+    def create_temp_directory(self, prefix: str = "vidock_") -> str:
         """Create a temporary directory and track it for cleanup."""
         # Clean up if we have too many temp directories
         if len(self.temp_dirs) >= self.max_temp_dirs:

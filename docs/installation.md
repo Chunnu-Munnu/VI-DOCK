@@ -10,8 +10,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/messiay/simdock-new.git
-cd simdock-new
+git clone https://github.com/messiay/vidock-new.git
+cd vidock-new
 
 # Install dependencies
 npm install
@@ -36,7 +36,7 @@ The production files will be in the `dist/` folder.
 
 ## Backend API Configuration
 
-SimDock connects to a FastAPI backend for docking computations. Configure the API endpoint in your environment:
+VI DOCK connects to a FastAPI backend for docking computations. Configure the API endpoint in your environment:
 
 ```bash
 # .env file

@@ -3,7 +3,7 @@ import os
 import sys
 from datetime import datetime
 
-def setup_logging(log_file: str = "simdock.log", level=logging.INFO):
+def setup_logging(log_file: str = "vidock.log", level=logging.INFO):
     """
     Setup application logging to file and console.
     
@@ -12,7 +12,7 @@ def setup_logging(log_file: str = "simdock.log", level=logging.INFO):
         level: Logging level.
     """
     # Create logger
-    logger = logging.getLogger("SimDock")
+    logger = logging.getLogger("VI DOCK")
     logger.setLevel(level)
     
     # Check if handlers already exist to avoid duplicate logs
@@ -51,4 +51,4 @@ def setup_logging(log_file: str = "simdock.log", level=logging.INFO):
 
 def get_logger():
     """Get the global logger instance."""
-    return logging.getLogger("SimDock")
+    return logging.getLogger("VI DOCK")

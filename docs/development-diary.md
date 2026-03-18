@@ -1,9 +1,9 @@
-# SimDock Pro: Development Diary and Technical Documentation
+# VI DOCK Pro: Development Diary and Technical Documentation
 
 ## A Comprehensive Record of the Web-Based Molecular Docking Platform Development
 
 **Document Classification:** Technical Development Log  
-**Project:** SimDock Pro (WebVina WASM Application)  
+**Project:** VI DOCK Pro (WebVina WASM Application)  
 **Last Updated:** January 6, 2026  
 **Document Version:** 1.0
 
@@ -11,7 +11,7 @@
 
 ## Abstract
 
-This document serves as a comprehensive scientific and technical diary chronicling the development of SimDock Pro, a browser-based molecular docking application leveraging WebAssembly (WASM) technology. The platform integrates AutoDock Vina, RDKit, and OpenBabel computational chemistry libraries, compiled to WASM, enabling client-side molecular docking simulations without server-side dependencies. This record documents all development phases, technical challenges encountered, solutions implemented, and future development trajectories.
+This document serves as a comprehensive scientific and technical diary chronicling the development of VI DOCK Pro, a browser-based molecular docking application leveraging WebAssembly (WASM) technology. The platform integrates AutoDock Vina, RDKit, and OpenBabel computational chemistry libraries, compiled to WASM, enabling client-side molecular docking simulations without server-side dependencies. This record documents all development phases, technical challenges encountered, solutions implemented, and future development trajectories.
 
 ---
 
@@ -21,7 +21,7 @@ This document serves as a comprehensive scientific and technical diary chronicli
 
 Traditional molecular docking workflows require installation of complex software dependencies, command-line interfaces, and significant computational resources. These barriers limit accessibility for researchers, students, and professionals without extensive computational chemistry infrastructure.
 
-SimDock Pro was conceived to democratize molecular docking by providing:
+VI DOCK Pro was conceived to democratize molecular docking by providing:
 - **Zero-installation deployment** via modern web browsers
 - **Client-side computation** eliminating server costs and data privacy concerns
 - **Intuitive graphical interface** reducing the learning curve for non-specialists
@@ -33,7 +33,7 @@ The application employs a novel architecture where traditional "backend" computa
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    SimDock Pro Architecture                  │
+│                    VI DOCK Pro Architecture                  │
 ├─────────────────────────────────────────────────────────────┤
 │  PRESENTATION LAYER (React + TypeScript)                    │
 │  ├── MoleculeViewer.tsx (3D visualization via NGL Viewer)   │
@@ -301,7 +301,7 @@ The UI design followed Apple's Human Interface Guidelines, emphasizing:
 
 ### 7.1 GitHub Repository
 
-- **Repository:** https://github.com/messiay/simdock-new
+- **Repository:** https://github.com/messiay/vidock-new
 - **Last Push:** January 5, 2026
 - **Branch Strategy:** Main branch for stable releases
 
@@ -370,7 +370,7 @@ The UI design followed Apple's Human Interface Guidelines, emphasizing:
 
 ### Appendix A: CSS Design Token Reference
 
-See [index.css](file:///c:/Users/user/OneDrive/Desktop/simdock_pro%203.1%20-%20Copy/new/webvina/src/index.css) for complete token definitions.
+See [index.css](file:///c:/Users/user/OneDrive/Desktop/vidock_pro%203.1%20-%20Copy/new/webvina/src/index.css) for complete token definitions.
 
 ### Appendix B: API Integrations
 
@@ -394,4 +394,4 @@ See [index.css](file:///c:/Users/user/OneDrive/Desktop/simdock_pro%203.1%20-%20C
 
 ---
 
-*This document is maintained as part of the SimDock Pro project and should be updated with each significant development milestone.*
+*This document is maintained as part of the VI DOCK Pro project and should be updated with each significant development milestone.*

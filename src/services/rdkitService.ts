@@ -2,6 +2,8 @@
  * RDKit.js Service - Chemical Intelligence Layer
  * Provides SMILES processing, 3D conformation generation, and property calculation
  */
+import { checkLipinski } from '../utils/lipinski';
+import type { LipinskiReport } from '../utils/lipinski';
 
 // RDKit module type declarations
 interface RDKitModule {
@@ -49,6 +51,7 @@ export interface MolecularProperties {
     formula: string;
     lipinskiViolations: number;
     drugLikeness: 'pass' | 'warning' | 'fail';
+    lipinskiReport?: LipinskiReport;
 }
 
 // Result interfaces
@@ -212,18 +215,18 @@ class RDKitService {
             const hba = descriptors.NumHBA || 0;
             const rotBonds = descriptors.NumRotatableBonds || 0;
 
-            // Calculate Lipinski violations
-            let violations = 0;
-            if (mw > 500) violations++;
-            if (logP > 5) violations++;
-            if (hbd > 5) violations++;
-            if (hba > 10) violations++;
+            // Calculate Lipinski violations using external utility
+            const mwVal = Math.round(mw * 100) / 100;
+            const logPVal = Math.round(logP * 100) / 100;
+            const tpsaVal = Math.round(tpsa * 100) / 100;
+            
+            const lipinski = checkLipinski(mwVal, logPVal, hbd, hba);
 
             return {
-                molecularWeight: Math.round(mw * 100) / 100,
+                molecularWeight: mwVal,
                 exactMass: Math.round((descriptors.exactmw || mw) * 10000) / 10000,
-                logP: Math.round(logP * 100) / 100,
-                tpsa: Math.round(tpsa * 100) / 100,
+                logP: logPVal,
+                tpsa: tpsaVal,
                 hbd,
                 hba,
                 rotatableBonds: rotBonds,
@@ -231,8 +234,9 @@ class RDKitService {
                 aromaticRings: descriptors.NumAromaticRings || 0,
                 heavyAtoms: descriptors.NumHeavyAtoms || mol.get_num_atoms(),
                 formula: descriptors.formula || '',
-                lipinskiViolations: violations,
-                drugLikeness: violations === 0 ? 'pass' : violations <= 1 ? 'warning' : 'fail',
+                lipinskiViolations: lipinski.violations,
+                drugLikeness: lipinski.violations === 0 ? 'pass' : lipinski.violations <= 1 ? 'warning' : 'fail',
+                lipinskiReport: lipinski,
             };
         } catch (error) {
             console.error('Failed to calculate properties:', error);

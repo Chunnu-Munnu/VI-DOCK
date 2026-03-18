@@ -24,7 +24,7 @@ export function FloatingToolbar() {
     const confirmSave = async () => {
         if (!missionName) return;
 
-        console.info('[SimDock] Attempting to save mission:', missionName);
+        console.info('[VI DOCK] Attempting to save mission:', missionName);
 
         try {
             await projectService.saveProject({
@@ -41,10 +41,10 @@ export function FloatingToolbar() {
                 }
             });
             setShowSaveModal(false);
-            console.info('[SimDock] Mission saved successfully!');
+            console.info('[VI DOCK] Mission saved successfully!');
             alert('Mission saved successfully!');
         } catch (e) {
-            console.error('[SimDock] Save failed:', e);
+            console.error('[VI DOCK] Save failed:', e);
             alert('Failed to save mission.');
         }
     };

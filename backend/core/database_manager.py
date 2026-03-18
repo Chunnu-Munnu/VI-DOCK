@@ -7,7 +7,7 @@ from datetime import datetime
 
 class DatabaseManager:
     """
-    Manages SQLite database operations for SimDock projects.
+    Manages SQLite database operations for VI DOCK projects.
     Handles storage and retrieval of docking sessions and results.
     """
     

@@ -66,7 +66,7 @@ WINDOW_SIZE = tuple(_config_manager.get_ui_setting("window_size", (800, 750)))
 MIN_WINDOW_SIZE = tuple(_config_manager.get_ui_setting("min_window_size", (750, 700)))
 
 # Temporary directory settings
-TEMP_DIR_PREFIX = _config_manager.get_temp_setting("temp_dir_prefix", "simdock_")
+TEMP_DIR_PREFIX = _config_manager.get_temp_setting("temp_dir_prefix", "vidock_")
 CLEANUP_ON_EXIT = _config_manager.get_temp_setting("cleanup_on_exit", True)
 
 # Configuration management functions

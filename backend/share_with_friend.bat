@@ -2,11 +2,11 @@
 set "NGROK_EXE=ngrok.exe"
 
 echo ========================================================
-echo   SimDock Pro - Internet Sharing Helper
+echo   VI DOCK Pro - Internet Sharing Helper
 echo ========================================================
 echo.
 echo [INFO] This script will:
-echo        1. Start the SimDock API Server (Your Laptop becomes the Server)
+echo        1. Start the VI DOCK API Server (Your Laptop becomes the Server)
 echo        2. Start the Internet Tunnel (So your friend can connect)
 echo.
 
@@ -16,7 +16,7 @@ taskkill /F /IM ngrok.exe >nul 2>nul
 echo          Done.
 
 echo [Step 1] Launching API Server (Port 8081)...
-start "SimDock API Server" cmd /k "run_api_share.bat"
+start "VI DOCK API Server" cmd /k "run_api_share.bat"
 echo          Done. (Opened in new window)
 echo.
 

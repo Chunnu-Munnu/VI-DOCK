@@ -88,7 +88,7 @@
         "timeout": 30
     },
     "temp": {
-        "temp_dir_prefix": "simdock_",
+        "temp_dir_prefix": "vidock_",
         "cleanup_on_exit": true
     }
 }

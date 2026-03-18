@@ -1,11 +1,11 @@
 @echo off
-REM Run SimDock Pro 3.1
+REM Run VI DOCK Pro 3.1
 REM Portable launcher - finds Python automatically
 set PYTHONPATH=%~dp0
 
-echo Starting SimDock Pro 3.1...
+echo Starting VI DOCK Pro 3.1...
 
-REM 1. Try common Conda paths (Preferred for SimDock reliability)
+REM 1. Try common Conda paths (Preferred for VI DOCK reliability)
 if exist "%USERPROFILE%\Miniconda3\python.exe" (
     echo Using Miniconda Python...
     set "PATH=%USERPROFILE%\Miniconda3;%USERPROFILE%\Miniconda3\Library\bin;%USERPROFILE%\Miniconda3\Scripts;%PATH%"

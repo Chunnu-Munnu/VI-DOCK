@@ -4,7 +4,7 @@ from typing import Optional
 from core.project_manager import ProjectManager
 from utils.config import ConfigManager
 
-PROJECTS_ROOT = Path("SimDock_Projects").resolve()
+PROJECTS_ROOT = Path("VI DOCK_Projects").resolve()
 PROJECTS_ROOT.mkdir(exist_ok=True)
 
 @lru_cache()
