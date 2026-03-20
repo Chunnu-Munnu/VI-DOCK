@@ -164,17 +164,28 @@ export function MoleculeViewer() {
                             try { viewer.setStyle({ model: receptorModel }, { stick: { colorscheme: 'Jmol' } }); } catch (e) { }
                         } else if (viewMode === 'surface') {
                             // Surface Mode: Ghost cartoon + Teal VDW Surface
-                            try { viewer.setStyle({ model: receptorModel }, { cartoon: { color: 'spectrum', opacity: 0.3 } }); } catch (e) { }
+                            try { 
+                                viewer.setStyle({ model: receptorModel }, { 
+                                    cartoon: { color: 'spectrum', opacity: 0.3 } 
+                                }); 
+                            } catch (e) { }
 
-                            // Force surface generation with a slight delay or check
                             try {
                                 const surfaceColor = theme === 'light' ? '#38BDF8' : '#2FACB2';
-                                // Check if atoms exist before adding surface to prevent crash
-                                if (receptorModel.selectedAtoms().length > 0) {
-                                    viewer.addSurface(window.$3Dmol.SurfaceType.VDW, {
-                                        opacity: 0.85,
-                                        color: surfaceColor
-                                    }, { model: receptorModel });
+                                if (receptorModel && receptorModel.selectedAtoms({}).length > 0) {
+                                    // Render first, then add surface to avoid symmetries crash
+                                    viewer.render();
+                                    setTimeout(() => {
+                                        try {
+                                            viewer.addSurface(window.$3Dmol.SurfaceType.VDW, {
+                                                opacity: 0.85,
+                                                color: surfaceColor
+                                            }, { model: receptorModel });
+                                            viewer.render();
+                                        } catch (delayedErr) {
+                                            console.warn('[MoleculeViewer] Delayed surface generation failed', delayedErr);
+                                        }
+                                    }, 100);
                                 }
                             } catch (surfaceErr) {
                                 console.warn('[MoleculeViewer] Surface generation failed', surfaceErr);
@@ -188,8 +199,7 @@ export function MoleculeViewer() {
 
             // ADD LIGAND
             if (ligandContent && typeof ligandContent === 'string' && ligandContent.trim().length > 10) {
-                // Smart format detection
-                let format = 'pdb'; // Default
+                let format = 'pdb';
                 const contentLower = ligandContent.toLowerCase();
                 const isSDF = contentLower.includes('m  end') ||
                     contentLower.includes('$$$$') ||
@@ -197,11 +207,26 @@ export function MoleculeViewer() {
                     contentLower.includes('v3000');
                 const hasPdbAtoms = ligandContent.includes('ATOM') || ligandContent.includes('HETATM');
 
-                if (isSDF && !hasPdbAtoms) format = 'sdf';
-                else format = 'pdb'; // Force PDB for PDBQT content as 3Dmol handles it better
+                let modelContent = ligandContent;
+
+                if (isSDF && !hasPdbAtoms) {
+                    format = 'sdf';
+                } else {
+                    format = 'pdb';
+                    // Strip PDBQT-specific extra columns to prevent 3Dmol symmetries crash
+                    modelContent = ligandContent.split('\n')
+                        .map(line => {
+                            if (line.startsWith('ATOM') || line.startsWith('HETATM')) {
+                                return line.substring(0, 66).padEnd(66, ' ');
+                            }
+                            return line;
+                        })
+                        .filter(line => !line.startsWith('REMARK') || line.startsWith('REMARK  '))
+                        .join('\n');
+                }
 
                 try {
-                    const ligandModel = viewer.addModel(ligandContent, format);
+                    const ligandModel = viewer.addModel(modelContent, format);
                     if (ligandModel) {
                         viewer.setStyle({ model: ligandModel }, {
                             stick: { colorscheme: 'greenCarbon', radius: 0.3 },
