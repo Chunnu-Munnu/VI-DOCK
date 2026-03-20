@@ -1,15 +1,16 @@
 FROM python:3.11-slim
 
-# Install system dependencies + AutoDock Vina
+# Install system dependencies + AutoDock Vina + OpenBabel
 RUN apt-get update && apt-get install -y \
     wget \
+    openbabel \
     libboost-system-dev \
     libboost-thread-dev \
     libboost-filesystem-dev \
     libboost-program-options-dev \
     libboost-iostreams-dev \
     && wget https://github.com/ccsb-scripps/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_linux_x86_64 \
-       -O /usr/local/bin/vina \
+    -O /usr/local/bin/vina \
     && chmod +x /usr/local/bin/vina \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
