@@ -1,9 +1,11 @@
 FROM python:3.11-slim
 
-# Install system dependencies + AutoDock Vina + OpenBabel
+# Install system dependencies + OpenBabel + AutoDock Vina
 RUN apt-get update && apt-get install -y \
     wget \
     openbabel \
+    python3-openbabel \
+    libopenbabel-dev \
     libboost-system-dev \
     libboost-thread-dev \
     libboost-filesystem-dev \
