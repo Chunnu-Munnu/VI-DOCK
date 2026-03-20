@@ -14,7 +14,11 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",                  # local dev
+        "https://vi-dock.vercel.app",             # replace with your actual Vercel URL
+        "https://*.vercel.app",                   # covers preview deployments too
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
